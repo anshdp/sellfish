@@ -16,3 +16,5 @@ class SignUpSeller extends SellerSignUpEvent {
   String username;
   String phoneNo;
 }
+
+class NewEvent extends SellerSignUpEvent {}

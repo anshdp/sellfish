@@ -11,6 +11,10 @@ part 'favorite_state.dart';
 final CollectionReference favoriteProducts =
     FirebaseFirestore.instance.collection(favoriteCollection);
 
+DocumentReference _favcollection = FirebaseFirestore.instance
+    .collection(favoriteCollection)
+    .doc(currentUser!.uid);
+
 final FirebaseAuth auth = FirebaseAuth.instance;
 
 User? currentUser = auth.currentUser;
@@ -19,26 +23,50 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   FavoriteBloc() : super(FavoriteInitial()) {
     on<FavoriteEvent>((event, emit) async {
       if (event is AddToFavorite) {
-        try {
-          await favoriteProducts.doc(currentUser!.uid).update(
-            {
-              'favoriteProductsArray': FieldValue.arrayUnion(
-                [
-                  {
-                    productIdField:
-                        event.favoriteProducts[productIdField].toString(),
-                    nameField: event.favoriteProducts[nameField].toString(),
-                    imageField: event.favoriteProducts[imageField].toString(),
-                    priceField: event.favoriteProducts[priceField].toString(),
-                    discountPriceField:
-                        event.favoriteProducts[discountPriceField].toString(),
-                  }
-                ].toList(),
-              ),
-            },
-          );
-        } catch (e) {
-          print(e);
+        if (_favcollection == false) {
+          try {
+            await favoriteProducts.doc(currentUser!.uid).set(
+              {
+                'favoriteProductsArray': FieldValue.arrayUnion(
+                  [
+                    {
+                      productIdField:
+                          event.favoriteProducts[productIdField].toString(),
+                      nameField: event.favoriteProducts[nameField].toString(),
+                      imageField: event.favoriteProducts[imageField].toString(),
+                      priceField: event.favoriteProducts[priceField].toString(),
+                      discountPriceField:
+                          event.favoriteProducts[discountPriceField].toString(),
+                    }
+                  ].toList(),
+                ),
+              },
+            );
+          } catch (e) {
+            print(e);
+          }
+        } else {
+          try {
+            await favoriteProducts.doc(currentUser!.uid).update(
+              {
+                'favoriteProductsArray': FieldValue.arrayUnion(
+                  [
+                    {
+                      productIdField:
+                          event.favoriteProducts[productIdField].toString(),
+                      nameField: event.favoriteProducts[nameField].toString(),
+                      imageField: event.favoriteProducts[imageField].toString(),
+                      priceField: event.favoriteProducts[priceField].toString(),
+                      discountPriceField:
+                          event.favoriteProducts[discountPriceField].toString(),
+                    }
+                  ].toList(),
+                ),
+              },
+            );
+          } catch (e) {
+            print(e);
+          }
         }
       }
     });

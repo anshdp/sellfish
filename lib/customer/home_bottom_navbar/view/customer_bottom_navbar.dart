@@ -1,5 +1,5 @@
 import 'package:buy_fish/customer/cart/cart.dart';
-import 'package:buy_fish/customer/feed/feed.dart';
+import 'package:buy_fish/customer/feed/view/feed.dart';
 import 'package:buy_fish/customer/profile/profile.dart';
 import 'package:buy_fish/customer/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';

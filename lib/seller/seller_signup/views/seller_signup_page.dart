@@ -20,11 +20,12 @@ class SellerSignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => _sellerLogin,
+      create: (context) => _sellerLogin..add(NewEvent()),
       child: BlocConsumer<SellerSignUpBloc, SellerSignUpState>(
         listener: (context, state) {
           if (state is NavigateToLogin) {
             Navigator.pushNamed(context, RouteConstants.userLogin);
+            print('state is --------------------------$state');
           } else {
             print('==========================');
           }

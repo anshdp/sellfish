@@ -3,8 +3,8 @@ part of 'wishlist_bloc.dart';
 @immutable
 abstract class WishlistEvent {}
 
-class RemoveFromWishlist extends WishlistEvent {
-  RemoveFromWishlist(this.productId);
+class RemoveWishlistItem extends WishlistEvent {
+  RemoveWishlistItem({required this.productId});
   String productId;
 }
 

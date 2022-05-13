@@ -1,4 +1,7 @@
+import 'package:buy_fish/constants/db_collection_constants.dart';
 import 'package:buy_fish/customer/wishlist/bloc/wishlist_bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +9,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class WishlistCards extends StatelessWidget {
   WishlistCards({Key? key, required this.favProducts}) : super(key: key);
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  late User? currentUser = _auth.currentUser;
 
   final dynamic favProducts;
 
@@ -21,7 +28,9 @@ class WishlistCards extends StatelessWidget {
     return BlocProvider(
       create: (context) => _wishlistBloc,
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          print(favProducts);
+        },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 6.w),
           decoration: BoxDecoration(
@@ -69,9 +78,9 @@ class WishlistCards extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: () {
-                            print(favProducts['index']);
-                            _wishlistBloc.add(RemoveFromWishlist(
-                                favProducts['productId'].toString()));
+                            _wishlistBloc.add(RemoveWishlistItem(
+                                productId:
+                                    favProducts['productId'].toString()));
                           },
                           icon: const Icon(
                             Icons.delete,

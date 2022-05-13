@@ -5,6 +5,6 @@ abstract class WishlistState {}
 
 class WishlistInitial extends WishlistState {}
 
-class WishlistRemovedSuccess extends WishlistState {}
+class RemoveFromWishlist extends WishlistState {}
 
 class AddedToCart extends WishlistState {}

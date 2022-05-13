@@ -15,7 +15,7 @@ class Wishlist extends StatelessWidget {
 
   late User? currentUser = _auth.currentUser;
 
-  List<dynamic>? favProducts;
+  dynamic favProducts;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +24,13 @@ class Wishlist extends StatelessWidget {
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasData) {
-          favProducts = snapshot.data!.get('favoriteProductsArray') as List;
+          favProducts = snapshot.data!.get('favoriteProductsArray');
           return Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 10.w,
             ),
             child: GridView.builder(
-              itemCount: favProducts!.length,
+              itemCount: favProducts!.length as int,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 0.70.w,

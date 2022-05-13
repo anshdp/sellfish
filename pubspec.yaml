@@ -25,6 +25,7 @@ dependencies:
   google_nav_bar: ^5.0.6
   image_picker: ^0.8.5
   intl: ^0.17.0
+  like_button: ^2.0.4
   line_icons: ^2.0.1
   lottie: ^1.2.2
   modal_bottom_sheet: ^2.0.1
